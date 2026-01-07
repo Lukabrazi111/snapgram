@@ -1,6 +1,6 @@
-import AuthLayout from "../../layouts/AuthLayout";
-import InputField from "../../components/ui/InputField";
-import Button from "../../components/ui/Button";
+import AuthLayout from "@/layouts/AuthLayout";
+import InputField from "@/components/ui/InputField";
+import Button from "@/components/ui/Button";
 import { Link } from "react-router-dom";
 
 export default function Signup() {
