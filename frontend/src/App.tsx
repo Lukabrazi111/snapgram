@@ -1,10 +1,13 @@
-import AuthLayout from "./layouts/AuthLayout";
+import { Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import HomeFeed from "./pages/HomeFeed";
 
 function App() {
   return (
-    <AuthLayout>
-      <div>Hello World</div>
-    </AuthLayout>
+    <Routes>
+      <Route path="/" element={<HomeFeed />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
 
