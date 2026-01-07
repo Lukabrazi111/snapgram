@@ -1,6 +1,6 @@
-import AuthLayout from "../layouts/AuthLayout";
-import InputField from "../components/ui/InputField";
-import Button from "../components/ui/Button";
+import AuthLayout from "../../layouts/AuthLayout";
+import InputField from "../../components/ui/InputField";
+import Button from "../../components/ui/Button";
 import { Link } from "react-router-dom";
 
 export default function Login() {
@@ -35,7 +35,7 @@ export default function Login() {
           <div className="flex flex-col space-y-2 mt-4 text-center">
             <p>
               Don't have an account?{" "}
-              <Link to="/signup" className="text-primary">
+              <Link to="/sign-up" className="text-primary">
                 Sign up
               </Link>
             </p>
