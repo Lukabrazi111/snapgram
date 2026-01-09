@@ -93,3 +93,4 @@ dist/
 
 # DynamoDB Local files
 .dynamodb/
+/generated/prisma
