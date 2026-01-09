@@ -29,14 +29,14 @@ export default function Login() {
               name="password"
               type="password"
             />
-            <Button label="Log in" type="submit" />
+            <Button label="Login" type="submit" />
           </div>
 
           <div className="flex flex-col space-y-2 mt-4 text-center">
             <p>
               Don't have an account?{" "}
-              <Link to="/sign-up" className="text-primary">
-                Sign up
+              <Link to="/register" className="text-primary">
+                Register
               </Link>
             </p>
             <p>

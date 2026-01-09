@@ -3,7 +3,7 @@ import InputField from "@/components/ui/InputField";
 import Button from "@/components/ui/Button";
 import { Link } from "react-router-dom";
 
-export default function Signup() {
+export default function Register() {
   return (
     <AuthLayout>
       <form action="#" method="POST" className="text-white w-full max-w-md">
@@ -36,7 +36,7 @@ export default function Signup() {
               name="password"
               type="password"
             />
-            <Button label="Sign Up" type="submit" />
+            <Button label="Register" type="submit" />
           </div>
 
           <div className="flex flex-col space-y-2 mt-4 text-center">
