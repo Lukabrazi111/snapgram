@@ -11,6 +11,8 @@
 /.phpunit.cache
 /.vscode
 /.zed
+/.cursorrules
+/.cursor
 /auth.json
 /node_modules
 /public/build
