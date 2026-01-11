@@ -38,6 +38,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Authenticate user and return token
+     *
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(LoginRequest $request)
     {
         $validated = $request->validated();
@@ -55,6 +61,12 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * Verify user email
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function verifyEmail(Request $request)
     {
         if (!$request->hasValidSignature()) {
@@ -74,6 +86,22 @@ class AuthController extends Controller
             'message' => 'User verified successfully',
             'success' => true,
             'user' => new UserResource($user),
+        ]);
+    }
+
+    /**
+     * Logout user and delete token
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'message' => 'Logged out successfully',
+            'success' => true,
         ]);
     }
 }

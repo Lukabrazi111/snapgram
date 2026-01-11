@@ -12,7 +12,7 @@ class AuthService
 {
     use TemporaryEmail;
 
-    public function createUser(array $data): User
+    public function createUser(array $data)
     {
         $user = User::create($data);
 
@@ -25,7 +25,7 @@ class AuthService
         return $user;
     }
 
-    public function verifyEmail(int $userId): User
+    public function verifyEmail(int $userId)
     {
         $user = User::find($userId);
 
@@ -69,9 +69,9 @@ class AuthService
      * Get user by field (email or username)
      *
      * @param string $value
-     * @return User | false
+     * @return User|false
      */
-    public function getUserByField(string $value): User|false
+    public function getUserByField(string $value)
     {
         $field = filter_var($value, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
