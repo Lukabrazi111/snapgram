@@ -1,7 +1,7 @@
-import AuthLayout from "@/layouts/AuthLayout";
-import InputField from "@/components/ui/InputField";
-import Button from "@/components/ui/Button";
-import { Link } from "react-router-dom";
+import AuthLayout from '@/layouts/AuthLayout';
+import InputField from '@/components/ui/InputField';
+import Button from '@/components/ui/Button';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   return (
@@ -34,13 +34,13 @@ export default function Login() {
 
           <div className="flex flex-col space-y-2 mt-4 text-center">
             <p>
-              Don't have an account?{" "}
+              Don't have an account?{' '}
               <Link to="/register" className="text-primary">
                 Register
               </Link>
             </p>
             <p>
-              Forgot password?{" "}
+              Forgot password?{' '}
               <Link to="/forgot-password" className="text-primary">
                 Reset password
               </Link>

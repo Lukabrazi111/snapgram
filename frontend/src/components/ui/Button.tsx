@@ -3,7 +3,7 @@ export default function Button({
   ...props
 }: {
   label: string;
-  type: "button" | "submit" | undefined;
+  type: 'button' | 'submit' | undefined;
 }) {
   return (
     <button

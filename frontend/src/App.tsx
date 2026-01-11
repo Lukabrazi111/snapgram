@@ -1,7 +1,7 @@
-import { Routes, Route } from "react-router-dom";
-import Login from "@/pages/auth/Login";
-import HomeFeed from "@/pages/HomeFeed";
-import Register from "@/pages/auth/Register";
+import { Routes, Route } from 'react-router-dom';
+import Login from '@/pages/auth/Login';
+import HomeFeed from '@/pages/HomeFeed';
+import Register from '@/pages/auth/Register';
 
 function App() {
   return (
