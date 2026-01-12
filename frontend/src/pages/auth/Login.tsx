@@ -1,7 +1,12 @@
 import AuthLayout from '@/layouts/AuthLayout';
 import InputField from '@/components/ui/InputField';
 import Button from '@/components/ui/Button';
-import { Link, useLocation } from 'react-router-dom';
+import {
+    Link,
+    type NavigateFunction,
+    useLocation,
+    useNavigate,
+} from 'react-router-dom';
 import { Slide, toast, ToastContainer } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
@@ -22,6 +27,7 @@ export default function Login() {
     const location = useLocation();
     const [backendErrorMessage, setBackendErrorMessage] = useState<string>('');
     const [isLoading, setIsLoading] = useState(false);
+    const navigate: NavigateFunction = useNavigate();
 
     const {
         register,
@@ -30,7 +36,7 @@ export default function Login() {
         formState: { errors },
     } = useForm<LoginFormInputs>();
 
-    const password: string = watch('password');
+    const pwdWatcher: string = watch('password');
 
     useEffect(() => {
         if (location.state?.message) {
@@ -39,10 +45,10 @@ export default function Login() {
         }
 
         // Remove backend error message while typing password input.
-        if (password) {
+        if (pwdWatcher) {
             setBackendErrorMessage('');
         }
-    }, [location.state, password]);
+    }, [location.state, pwdWatcher]);
 
     const handleLogin: SubmitHandler<LoginFormInputs> = async (
         data: LoginFormInputs,
@@ -51,7 +57,11 @@ export default function Login() {
         try {
             const response = await axios.post('/login', data);
             if (response.status === 200) {
-                console.log('');
+                // Save token and user inside storage.
+
+                navigate('/', {
+                    state: { message: `Hello ${response.data.user.name}!` },
+                });
             }
         } catch (error) {
             const err = error as AxiosError<ApiErrorResponse>;
