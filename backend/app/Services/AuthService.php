@@ -33,11 +33,11 @@ class AuthService
         $user = User::find($userId);
 
         if (is_null($user)) {
-            throw new \Exception('Invalid verification link', 410);
+            throw new \Exception('Invalid verification link.', 410);
         }
 
         if ($user->hasVerifiedEmail()) {
-            throw new \Exception('User already verified', 409);
+            throw new \Exception('User already verified.', 409);
         }
 
         $user->markEmailAsVerified();
@@ -57,7 +57,7 @@ class AuthService
         $user = $this->getUserByField($data['email']);
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
-            throw new \Exception('Email or password is incorrect', 401);
+            throw new \Exception('Email or password is incorrect.', 401);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
