@@ -36,7 +36,7 @@ export default function Register() {
         getValues,
     } = useForm<RegisterFormData>();
 
-    const onSubmit: SubmitHandler<RegisterFormData> = async (
+    const handleRegister: SubmitHandler<RegisterFormData> = async (
         data: RegisterFormData,
     ) => {
         setIsLoading(true);
@@ -56,9 +56,7 @@ export default function Register() {
     return (
         <AuthLayout>
             <form
-                onSubmit={handleSubmit(onSubmit)}
-                action="#"
-                method="POST"
+                onSubmit={handleSubmit(handleRegister)}
                 className="text-white w-full max-w-md"
             >
                 <div className="flex flex-col space-y-4">
