@@ -32,7 +32,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'message' => 'We\'ve sent you a verification email, please verify your email',
+            'message' => 'We\'ve sent you a verification email',
             'success' => true,
             'user' => new UserResource($user),
         ]);
@@ -77,7 +77,7 @@ class AuthController extends Controller
         }
 
         try {
-            $user = $this->authService->verifyEmail((int) $request->user);
+            $user = $this->authService->verifyEmail($request->user);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], $e->getCode());
         }

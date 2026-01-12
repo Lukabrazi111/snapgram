@@ -12,12 +12,15 @@ class AuthService
 {
     use TemporaryEmail;
 
-    public function createUser(array $data)
+    /**
+     * @return User
+     * @throws \Exception
+     */
+    public function createUser(array $data): User
     {
         $user = User::create($data);
 
         $tempUrl = URL::temporarySignedRoute('verify-email', now()->addMinutes(15), ['user' => $user->id]);
-
         $frontendUrl = $this->getFrontendUrl($tempUrl);
 
         SendUserVerificationMailJob::dispatch($user->email, $frontendUrl);

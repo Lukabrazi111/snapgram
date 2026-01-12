@@ -16,7 +16,7 @@ class UserVerificationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(private string $url)
+    public function __construct(private readonly string $url)
     {
         //
     }
