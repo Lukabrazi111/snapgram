@@ -2,21 +2,21 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Font */
-  --font-inter: 'Inter', sans-serif;
+    /* Font */
+    --font-inter: 'Inter', sans-serif;
 
-  /* Colors */
-  --color-primary: #877eff;
-  --color-surface: #1f1f22;
-  --color-muted: #7878a3;
+    /* Colors */
+    --color-primary: #877eff;
+    --color-surface: #1f1f22;
+    --color-muted: #7878a3;
 }
 
 *::before,
 *::after,
 * {
-  font-family: var(--font-inter);
+    font-family: var(--font-inter);
 }
 
 body {
-  background-color: #000000;
+    background-color: #000000;
 }
