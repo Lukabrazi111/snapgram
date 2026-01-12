@@ -1,10 +1,21 @@
 import AuthLayout from '@/layouts/AuthLayout';
 import InputField from '@/components/ui/InputField';
 import Button from '@/components/ui/Button';
-import { Link } from 'react-router-dom';
-import { Slide, ToastContainer } from 'react-toastify';
+import { Link, useLocation } from 'react-router-dom';
+import { Slide, toast, ToastContainer } from 'react-toastify';
+import { useEffect } from 'react';
 
 export default function Login() {
+    const location = useLocation();
+
+    useEffect(() => {
+        const message = location.state?.message;
+        if (message) {
+            toast.success(message);
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state]);
+
     return (
         <AuthLayout>
             <form

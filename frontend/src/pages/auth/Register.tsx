@@ -3,19 +3,19 @@ import InputField from '@/components/ui/InputField';
 import Button from '@/components/ui/Button';
 import FieldError from '@/components/form/FieldError';
 import axios from '@/configs/axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, type NavigateFunction, useNavigate } from 'react-router-dom';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import { Slide, toast, ToastContainer } from 'react-toastify';
+import { Slide, ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 
-type RegisterFormData = {
+interface RegisterFormData {
     name: string;
     username: string;
     email: string;
     password: string;
     password_confirmation: string;
-};
+}
 
 type ValidationErrors = Record<string, string[]>;
 
@@ -25,7 +25,7 @@ type ApiErrorResponse = {
 };
 
 export default function Register() {
-    const navigate = useNavigate();
+    const navigate: NavigateFunction = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [backendErrors, setBackendErrors] = useState<ValidationErrors>({});
 
@@ -42,8 +42,8 @@ export default function Register() {
         setIsLoading(true);
         try {
             const response = await axios.post('/register', data);
-            setTimeout(() => navigate('/login'), 2000);
-            toast.success(response?.data?.message);
+            const message: string = response.data.message;
+            navigate('/login', { state: { message } });
         } catch (error) {
             setIsLoading(false);
             const err = error as AxiosError<ApiErrorResponse>;
