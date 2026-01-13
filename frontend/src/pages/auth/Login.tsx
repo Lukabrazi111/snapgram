@@ -8,11 +8,12 @@ import {
     useNavigate,
 } from 'react-router-dom';
 import { Slide, toast, ToastContainer } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import FieldError from '@/components/form/FieldError.tsx';
 import type { AxiosError } from 'axios';
 import axios from '@/configs/axios.tsx';
+import { useAuthUserStore } from '@/stores/authUserStore.tsx';
 
 interface LoginFormInputs {
     email: string;
@@ -28,6 +29,7 @@ export default function Login() {
     const [backendErrorMessage, setBackendErrorMessage] = useState<string>('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate: NavigateFunction = useNavigate();
+    const hasShownToast = useRef<string | null>(null);
 
     const {
         register,
@@ -36,19 +38,26 @@ export default function Login() {
         formState: { errors },
     } = useForm<LoginFormInputs>();
 
+    const { setAuthToken, setUser, setIsAuthenticated } = useAuthUserStore();
+
     const pwdWatcher: string = watch('password');
 
+    // Handle navigation state messages (e.g., from registration)
     useEffect(() => {
-        if (location.state?.message) {
-            toast.success(location.state.message);
+        const message = location.state?.message as string | undefined;
+        if (message && hasShownToast.current !== message) {
+            toast.success(message);
+            hasShownToast.current = message;
             window.history.replaceState({}, document.title);
         }
+    }, [location.state]);
 
-        // Remove backend error message while typing password input.
+    // Remove backend error message while typing password input
+    useEffect(() => {
         if (pwdWatcher) {
             setBackendErrorMessage('');
         }
-    }, [location.state, pwdWatcher]);
+    }, [pwdWatcher]);
 
     const handleLogin: SubmitHandler<LoginFormInputs> = async (
         data: LoginFormInputs,
@@ -58,7 +67,9 @@ export default function Login() {
             const response = await axios.post('/login', data);
             if (response.status === 200) {
                 // Save token and user inside storage.
-
+                setAuthToken(response.data.auth_token);
+                setUser(response.data.user);
+                setIsAuthenticated(true);
                 navigate('/', {
                     state: { message: `Hello ${response.data.user.name}!` },
                 });

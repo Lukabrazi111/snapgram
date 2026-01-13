@@ -1,5 +1,4 @@
-import Axios, { type AxiosInstance, type AxiosError } from 'axios';
-import { type NavigateFunction, useNavigate } from 'react-router-dom';
+import Axios, { type AxiosInstance } from 'axios';
 
 const axios: AxiosInstance = Axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -11,7 +10,7 @@ const axios: AxiosInstance = Axios.create({
 
 axios.interceptors.request.use((config) => {
     const token: string | null = localStorage.getItem('auth_token') ?? null;
-
+    
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -24,16 +23,18 @@ axios.interceptors.response.use(
         return response;
     },
     (error) => {
-        const navigate: NavigateFunction = useNavigate();
-        const err = error as AxiosError;
-
-        if (err.response?.status === 401) {
+        if (error.response?.status === 401) {
             localStorage.removeItem('auth_token');
-            // TODO: maybe in the future we can add a message for the user.
-            navigate('/login');
+            localStorage.removeItem('user');
+            
+            // Redirect to login page (avoid redirect if already on login/register page)
+            const currentPath = window.location.pathname;
+            if (currentPath !== '/login' && currentPath !== '/register') {
+                window.location.href = '/login';
+            }
         }
 
-        return Promise.reject(err);
+        return Promise.reject(error.response?.data || error);
     },
 );
 

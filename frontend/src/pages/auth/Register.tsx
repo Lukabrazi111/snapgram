@@ -22,7 +22,7 @@ type ValidationErrors = Record<string, string[]>;
 interface ApiErrorResponse {
     message: string;
     errors: ValidationErrors;
-};
+}
 
 export default function Register() {
     const navigate: NavigateFunction = useNavigate();
@@ -43,7 +43,6 @@ export default function Register() {
         try {
             const response = await axios.post('/register', data);
             const message: string = response.data.message;
-            console.log(response.data);
             navigate('/login', { state: { message } });
         } catch (error) {
             setIsLoading(false);
