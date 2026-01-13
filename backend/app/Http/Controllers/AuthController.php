@@ -54,11 +54,10 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'token' => $token,
+            'auth_token' => $token,
             'user' => new UserResource($user),
         ]);
     }
-
 
     /**
      * Verify user email
@@ -69,10 +68,7 @@ class AuthController extends Controller
     public function verifyEmail(Request $request)
     {
         if (!$request->hasValidSignature()) {
-            return response()->json([
-                'message' => 'Invalid verification link',
-                'success' => false,
-            ], 410);
+            abort(410, 'Invalid verification link or expired');
         }
 
         try {
