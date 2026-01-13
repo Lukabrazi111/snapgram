@@ -46,7 +46,6 @@ export const useAuthUserStore = create<userState & userActions>((set) => ({
             const response = await axios.get('/user');
             if (response.status === 200) {
                 const user = response.data; // get user data from response
-                // Save to localStorage and update state
                 set({ isAuthenticated: true });
                 return user;
             }
