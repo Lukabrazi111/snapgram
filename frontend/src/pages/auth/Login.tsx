@@ -38,7 +38,11 @@ export default function Login() {
         formState: { errors },
     } = useForm<LoginFormInputs>();
 
-    const { setAuthToken, setUser, setIsAuthenticated } = useAuthUserStore();
+    const setAuthToken = useAuthUserStore((state) => state.setAuthToken);
+    const setUser = useAuthUserStore((state) => state.setUser);
+    const setIsAuthenticated = useAuthUserStore(
+        (state) => state.setIsAuthenticated,
+    );
 
     const pwdWatcher: string = watch('password');
 
