@@ -9,37 +9,50 @@ type userState = {
 
 type userActions = {
     getUser: () => Promise<userState['user'] | null>;
-    setUser: (user: userState['user']) => void;
     setAuthToken: (token: userState['authToken']) => void;
+    setUser: (user: userState['user']) => void;
     setIsAuthenticated: (isAuthenticated: userState['isAuthenticated']) => void;
     logout: () => void;
 };
 
-// Initialize from localStorage
-const getInitialAuthToken = (): string => {
-    if (typeof window !== 'undefined') {
-        return localStorage.getItem('auth_token') ?? '';
+// Initialize state from localStorage
+const getInitialState = (): Pick<userState, 'user' | 'authToken'> => {
+    if (typeof window === 'undefined') {
+        return { user: {}, authToken: '' };
     }
-    return '';
+
+    const token = localStorage.getItem('auth_token') ?? '';
+    const userStr = localStorage.getItem('user');
+    let user = {};
+    if (userStr) {
+        try {
+            user = JSON.parse(userStr);
+        } catch {
+            user = {};
+        }
+    }
+
+    return { user, authToken: token };
 };
 
+const initialState = getInitialState();
+
 export const useAuthUserStore = create<userState & userActions>((set) => ({
-    user: {},
-    authToken: getInitialAuthToken(),
+    user: initialState.user,
+    authToken: initialState.authToken,
     isAuthenticated: false,
     getUser: async () => {
         try {
             const response = await axios.get('/user');
-
             if (response.status === 200) {
-                const user = response.data.user;
-                set({ isAuthenticated: true, user });
+                const user = response.data; // get user data from response
+                // Save to localStorage and update state
+                set({ isAuthenticated: true });
                 return user;
             }
             set({ isAuthenticated: false, user: {} });
             return null;
         } catch {
-            // Handle errors (network errors, 401, 500, etc.)
             set({ isAuthenticated: false, user: {} });
             return null;
         }

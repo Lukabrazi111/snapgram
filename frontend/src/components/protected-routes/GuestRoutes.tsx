@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useAuthUserStore } from '@/stores/authUserStore';
 
 export const GuestRoutes = () => {
-    const { getUser, isAuthenticated } = useAuthUserStore();
+    const getUser = useAuthUserStore((state) => state.getUser);
+    const isAuthenticated = useAuthUserStore((state) => state.isAuthenticated);
     const [isChecking, setIsChecking] = useState(true);
 
     useEffect(() => {
@@ -21,7 +22,7 @@ export const GuestRoutes = () => {
     }, [getUser]);
 
     if (isChecking) {
-        return null; // or a loading spinner
+        return null;
     }
 
     if (isAuthenticated) {
