@@ -35,12 +35,12 @@ export default function ForgotPassword() {
         try {
             const response = await axios.post('/forgot-password', data);
             if (response.status === 200) {
-                // TODO: show toast success
                 toast.success(response.data.message);
                 resetField('email');
                 setBackendErrorMessage('');
             }
         } catch (error) {
+            // Need to change error handling 
             const err = error as AxiosError<ApiErrorResponse>;
             setBackendErrorMessage(err.message ?? 'An error occurred while sending the reset link.');
         } finally {

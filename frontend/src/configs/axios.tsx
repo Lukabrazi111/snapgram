@@ -27,14 +27,18 @@ axios.interceptors.response.use(
             localStorage.removeItem('auth_token');
             localStorage.removeItem('user');
             
-            // Redirect to login page (avoid redirect if already on login/register page)
+            // Redirect to login page (avoid redirect if already on login/register/reset-password page)
             const currentPath = window.location.pathname;
-            if (currentPath !== '/login' && currentPath !== '/register') {
+            if (
+                currentPath !== '/login' &&
+                currentPath !== '/register' &&
+                currentPath !== '/reset-password'
+            ) {
                 window.location.href = '/login';
             }
         }
 
-        return Promise.reject(error.response?.data || error);
+        return Promise.reject(error);
     },
 );
 

@@ -1,10 +1,9 @@
 import AuthLayout from '@/layouts/AuthLayout';
 import InputField from '@/components/ui/InputField';
-import { Link } from 'react-router-dom';
 import { Slide, ToastContainer } from 'react-toastify';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import FieldError from '@/components/form/FieldError.tsx';
 import type { AxiosError } from 'axios';
 import axios from '@/configs/axios.tsx';
@@ -19,45 +18,82 @@ type ApiErrorResponse = {
     message: string;
 };
 
+type ValidationErrors = Record<string, string[]>;
+
 export default function ResetPassword() {
-    const [backendErrorMessage, setBackendErrorMessage] = useState<string>('');
+    const [backendErrors, setBackendErrors] = useState<ValidationErrors>({});
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-
+    const [searchParams] = useSearchParams();
     const {
         register,
         handleSubmit,
         watch,
+        getValues,
         formState: { errors },
         reset,
     } = useForm<ResetPasswordFormInputs>();
 
-    const passwordConfirmationWatcher: string = watch('password_confirmation');
+    const passwordWatcher: string = watch('password');
+
+    const getParams = useCallback(() => {
+        const token = searchParams.get('token');
+        const expires = searchParams.get('expires');
+        const signature = searchParams.get('signature');
+
+        return { token, expires, signature };
+    }, [searchParams]);
 
     useEffect(() => {
-        if (passwordConfirmationWatcher) {
-            setBackendErrorMessage('');
+        const { token, expires, signature } = getParams();
+
+        if (!token || !expires || !signature) {
+            navigate('/login', {
+                replace: true,
+                state: { errorMessage: 'Invalid reset password link' },
+            });
+            return;
         }
-    }, [passwordConfirmationWatcher]);
+
+        // TODO: Need to check if email is in the database (use backend api). if not redirect to login with same error message.
+    }, [navigate, getParams]);
+
+    useEffect(() => {
+        if (passwordWatcher) {
+            setBackendErrors({});
+        }
+    }, [passwordWatcher]);
 
     const handleResetPassword: SubmitHandler<ResetPasswordFormInputs> = async (
         data: ResetPasswordFormInputs,
     ) => {
         setIsLoading(true);
+        const { token, expires, signature } = getParams();
+
         try {
-            const response = await axios.post('/reset-password', data);
+            const response = await axios.post('/reset-password', data, {
+                params: { expires, token, signature },
+            });
+
             if (response.status === 200) {
                 navigate('/login', {
+                    replace: true,
                     state: { message: response.data.message },
                 });
                 reset();
             }
         } catch (error) {
             const err = error as AxiosError<ApiErrorResponse>;
-            setBackendErrorMessage(
-                err.message ??
-                    'An error occurred while sending the reset link.',
-            );
+            if (
+                err.response?.status === 401 ||
+                err.response?.status === 400 ||
+                err.response?.status === 403
+            ) {
+                navigate('/login', {
+                    replace: true,
+                    state: { errorMessage: err.response?.data.message },
+                });
+            }
         } finally {
             setIsLoading(false);
         }
@@ -109,14 +145,11 @@ export default function ResetPassword() {
                                 {...register('password_confirmation', {
                                     required:
                                         'Password confirmation field is required.',
-                                    validate: (value) => {
-                                        if (
-                                            value !==
-                                            passwordConfirmationWatcher
-                                        ) {
-                                            return 'Passwords do not match.';
-                                        }
-                                        return true;
+                                    validate: (value: string) => {
+                                        return (
+                                            value === getValues('password') ||
+                                            'Passwords do not match.'
+                                        );
                                     },
                                 })}
                                 label="Password confirmation"
@@ -131,25 +164,27 @@ export default function ResetPassword() {
                                     }
                                 />
                             )}
-                            {backendErrorMessage && (
-                                <FieldError message={backendErrorMessage} />
+                            {backendErrors?.password_confirmation && (
+                                <FieldError
+                                    message={
+                                        backendErrors?.password_confirmation[0]
+                                    }
+                                />
                             )}
                         </div>
                         <Button
                             label={
-                                isLoading && !backendErrorMessage
-                                    ? 'Sending reset link...'
-                                    : 'Send reset link'
+                                isLoading &&
+                                Object.keys(backendErrors).length > 0
+                                    ? 'Resetting password...'
+                                    : 'Reset password'
                             }
                             type="submit"
-                            disabled={isLoading && !backendErrorMessage}
+                            disabled={
+                                isLoading &&
+                                Object.keys(backendErrors).length > 0
+                            }
                         />
-                    </div>
-
-                    <div className="space-y-2 mt-4 text-center">
-                        <Link to="/login" className="text-primary">
-                            Back to login
-                        </Link>
                     </div>
                 </div>
             </form>

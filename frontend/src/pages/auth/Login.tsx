@@ -54,6 +54,14 @@ export default function Login() {
             hasShownToast.current = message;
             window.history.replaceState({}, document.title);
         }
+        const errorMessage = location.state?.errorMessage as string | undefined;
+
+        console.log(errorMessage);
+        if (errorMessage && hasShownToast.current !== errorMessage) {
+            toast.error(errorMessage);
+            hasShownToast.current = errorMessage;
+            window.history.replaceState({}, document.title);
+        }
     }, [location.state]);
 
     // Remove backend error message while typing password input
