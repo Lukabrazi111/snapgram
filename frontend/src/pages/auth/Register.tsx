@@ -53,6 +53,16 @@ export default function Register() {
         }
     };
 
+    const handleValueOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+
+        const statement = !value || value.length < 3 || value.length > 255;
+
+        if (statement) {
+            setBackendErrors({});
+        }
+    };
+
     return (
         <AuthLayout>
             <form
@@ -101,6 +111,7 @@ export default function Register() {
                                 type="text"
                                 {...register('username', {
                                     required: 'Username field is required.',
+                                    onChange: handleValueOnChange,
                                     maxLength: {
                                         value: 255,
                                         message:
@@ -131,6 +142,7 @@ export default function Register() {
                                 type="email"
                                 {...register('email', {
                                     required: 'Email field is required.',
+                                    onChange: handleValueOnChange,
                                 })}
                             />
                             {errors.email && (

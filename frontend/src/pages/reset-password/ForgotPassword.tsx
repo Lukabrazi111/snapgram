@@ -28,6 +28,7 @@ export default function ForgotPassword() {
         watch,
         resetField,
     } = useForm<ForgotPasswordFormInputs>();
+
     const emailWatcher: string = watch('email');
 
     useEffect(() => {
