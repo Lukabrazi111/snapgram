@@ -86,7 +86,7 @@ export default function Login() {
             }
         } catch (error) {
             const err = error as AxiosError<ApiErrorResponse>;
-            if (err.response?.status === 401) {
+            if (err.response?.status === 401 || err.response?.status === 403) {
                 setBackendErrorMessage(err.response?.data?.message);
             }
         } finally {
@@ -120,12 +120,13 @@ export default function Login() {
                         <div>
                             <InputField
                                 {...register('email', {
-                                    required: 'Email field is required.',
+                                    required:
+                                        'Email and username field is required.',
                                 })}
-                                label="Email"
+                                label="Email or username"
                                 id="email"
                                 name="email"
-                                type="email"
+                                type="text"
                             />
                             {errors.email && (
                                 <FieldError message={errors.email?.message} />
