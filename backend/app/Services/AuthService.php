@@ -60,6 +60,10 @@ class AuthService
             throw new \Exception('Email or password is incorrect.', 401);
         }
 
+        if (!$user->hasVerifiedEmail()) {
+            throw new \Exception('Email not verified. Please verify your email first.', 403);
+        }
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return [
