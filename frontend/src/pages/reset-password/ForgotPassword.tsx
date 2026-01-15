@@ -2,7 +2,7 @@ import AuthLayout from '@/layouts/AuthLayout';
 import InputField from '@/components/ui/InputField';
 import { Link } from 'react-router-dom';
 import { Slide, toast, ToastContainer } from 'react-toastify';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import FieldError from '@/components/form/FieldError.tsx';
 import type { AxiosError } from 'axios';
@@ -25,8 +25,16 @@ export default function ForgotPassword() {
         register,
         handleSubmit,
         formState: { errors },
+        watch,
         resetField,
     } = useForm<ForgotPasswordFormInputs>();
+    const emailWatcher: string = watch('email');
+
+    useEffect(() => {
+        if (!emailWatcher) {
+            setBackendErrorMessage('');
+        }
+    }, [emailWatcher]);
 
     const handleForgotPassword: SubmitHandler<
         ForgotPasswordFormInputs
@@ -40,9 +48,13 @@ export default function ForgotPassword() {
                 setBackendErrorMessage('');
             }
         } catch (error) {
-            // Need to change error handling 
             const err = error as AxiosError<ApiErrorResponse>;
-            setBackendErrorMessage(err.message ?? 'An error occurred while sending the reset link.');
+            if (err.response?.status === 403) {
+                const errorMessage: string =
+                    err.response?.data.message ??
+                    'An error occurred while sending the reset link.';
+                setBackendErrorMessage(errorMessage);
+            }
         } finally {
             setIsLoading(false);
         }

@@ -55,8 +55,6 @@ export default function Login() {
             window.history.replaceState({}, document.title);
         }
         const errorMessage = location.state?.errorMessage as string | undefined;
-
-        console.log(errorMessage);
         if (errorMessage && hasShownToast.current !== errorMessage) {
             toast.error(errorMessage);
             hasShownToast.current = errorMessage;
@@ -66,7 +64,7 @@ export default function Login() {
 
     // Remove backend error message while typing password input
     useEffect(() => {
-        if (pwdWatcher) {
+        if (!pwdWatcher) {
             setBackendErrorMessage('');
         }
     }, [pwdWatcher]);
