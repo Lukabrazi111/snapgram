@@ -5,7 +5,8 @@ namespace App\Services;
 use App\Jobs\SendResetPasswordEmailJob;
 use App\Models\User;
 use App\Traits\TemporaryEmail;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
@@ -48,7 +49,7 @@ class ResetPasswordService
         }
 
         $user->update([
-            'password' => bcrypt($validated['password']),
+            'password' => Hash::make($validated['password']),
         ]);
 
         $this->deleteToken($email);
