@@ -20,7 +20,11 @@ class AuthService
     {
         $user = User::create($data);
 
-        $tempUrl = URL::temporarySignedRoute('verify-email', now()->addMinutes(15), ['user' => $user->id]);
+        $tempUrl = URL::temporarySignedRoute(
+            'verify-email',
+            now()->addMinutes(config('constants.auth_expiration_time')),
+            ['user' => $user->id]
+        );
         $frontendUrl = $this->getFrontendUrl($tempUrl);
 
         SendUserVerificationMailJob::dispatch($user->email, $frontendUrl);

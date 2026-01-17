@@ -6,7 +6,9 @@ use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Models\User;
 use App\Services\ResetPasswordService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ResetPasswordController extends Controller
 {
@@ -28,6 +30,20 @@ class ResetPasswordController extends Controller
             'message' => 'We\'ve sent you a reset password email',
             'success' => true,
             'user' => $user->only('email')
+        ]);
+    }
+
+    public function checkToken(string $token): JsonResponse
+    {
+        try {
+            $this->resetPasswordService->checkTokenValidity($token);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getCode());
+        }
+
+        return response()->json([
+            'message' => 'Token is valid',
+            'success' => true,
         ]);
     }
 

@@ -17,6 +17,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Reset password
 Route::post('/forgot-password', [ResetPasswordController::class, 'forgotPassword'])->name('forgot-password');
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset-password');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'checkToken'])->name('reset-password-confirm');
 
 // Email verification
 Route::get('/verify-email', [AuthController::class, 'verifyEmail'])->name('verify-email');

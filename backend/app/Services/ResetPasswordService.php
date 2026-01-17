@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Jobs\SendResetPasswordEmailJob;
 use App\Models\User;
 use App\Traits\TemporaryEmail;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
@@ -57,12 +58,29 @@ class ResetPasswordService
         return $user;
     }
 
-    public function deleteToken(string $email): void
+    public function checkTokenValidity(string $token)
+    {
+        $data = DB::table('password_reset_tokens')->whereToken($token)->first();
+
+        if (!$data) {
+            throw new \Exception('Invalid token or expired', 400);
+        }
+
+        $expiresAt = Carbon::parse($data->created_at)->addMinutes(config('constants.auth_expiration_time'));
+
+        if (now()->greaterThan($expiresAt)) {
+            throw new \Exception('Token expired', 400);
+        }
+
+        return true;
+    }
+
+    private function deleteToken(string $email): void
     {
         DB::table('password_reset_tokens')->whereEmail($email)->delete();
     }
 
-    public function getEmailViaToken(string $token): bool|string
+    private function getEmailViaToken(string $token): bool|string
     {
         $data = DB::table('password_reset_tokens')->whereToken($token)->first();
 
@@ -73,7 +91,7 @@ class ResetPasswordService
         return $data->email; // return email of the user
     }
 
-    public function saveToken(string $email): string
+    private function saveToken(string $email): string
     {
         $this->tokenExistsAndDelete($email);
 
@@ -95,7 +113,7 @@ class ResetPasswordService
      * @param string $email
      * @return void
      */
-    public function tokenExistsAndDelete(string $email): void
+    private function tokenExistsAndDelete(string $email): void
     {
         $existsToken = DB::table('password_reset_tokens')->whereEmail($email)->exists();
 
@@ -104,9 +122,13 @@ class ResetPasswordService
         }
     }
 
-    public function generateTempUrl(string $token): string
+    private function generateTempUrl(string $token): string
     {
-        $tempUrl = URL::temporarySignedRoute('reset-password', now()->addMinutes(15), ['token' => $token]);
+        $tempUrl = URL::temporarySignedRoute(
+            'reset-password',
+            now()->addMinutes(config('constants.auth_expiration_time')),
+            ['token' => $token]
+        );
         return $this->getFrontendUrl($tempUrl);
     }
 }
