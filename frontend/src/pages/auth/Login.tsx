@@ -120,8 +120,7 @@ export default function Login() {
                         <div>
                             <InputField
                                 {...register('email', {
-                                    required:
-                                        'Email and username field is required.',
+                                    required: 'Email and username field is required.',
                                 })}
                                 label="Email or username"
                                 id="email"

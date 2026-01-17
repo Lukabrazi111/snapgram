@@ -55,7 +55,23 @@ export default function ResetPassword() {
             return;
         }
 
+        const checkTokenValidity = async (token: string) => {
+            try {
+                await axios.get(`/reset-password/${token}`);
+            } catch (error) {
+                const err = error as AxiosError<ApiErrorResponse>;
+                if (err.response?.status === 400) {
+                    navigate('/login', {
+                        replace: true,
+                        state: { errorMessage: err.response?.data.message },
+                    });
+                }
+            }
+
+        };
+
         // TODO: Need to check if email is in the database (use backend api). if not redirect to login with same error message.
+        checkTokenValidity(token);
 
         return () => {
             searchParams.delete('token');
@@ -181,7 +197,7 @@ export default function ResetPassword() {
                         <Button
                             label={
                                 isLoading &&
-                                Object.keys(backendErrors).length > 0
+                                    Object.keys(backendErrors).length > 0
                                     ? 'Resetting password...'
                                     : 'Reset password'
                             }
