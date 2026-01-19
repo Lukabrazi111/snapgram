@@ -2,7 +2,7 @@ import AuthLayout from '@/layouts/AuthLayout';
 import InputField from '@/components/ui/InputField';
 import { Link } from 'react-router-dom';
 import { Slide, toast, ToastContainer } from 'react-toastify';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import FieldError from '@/components/form/FieldError.tsx';
 import type { AxiosError } from 'axios';
@@ -25,17 +25,16 @@ export default function ForgotPassword() {
         register,
         handleSubmit,
         formState: { errors },
-        watch,
         resetField,
     } = useForm<ForgotPasswordFormInputs>();
 
-    const emailWatcher: string = watch('email');
+    const handleValueOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
 
-    useEffect(() => {
-        if (!emailWatcher) {
+        if (!value) {
             setBackendErrorMessage('');
         }
-    }, [emailWatcher]);
+    };
 
     const handleForgotPassword: SubmitHandler<
         ForgotPasswordFormInputs
@@ -89,6 +88,7 @@ export default function ForgotPassword() {
                             <InputField
                                 {...register('email', {
                                     required: 'Email field is required.',
+                                    onChange: handleValueOnChange,
                                 })}
                                 label="Email"
                                 id="email"

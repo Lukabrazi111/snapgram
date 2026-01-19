@@ -34,7 +34,6 @@ export default function Login() {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm<LoginFormInputs>();
 
@@ -43,8 +42,6 @@ export default function Login() {
     const setIsAuthenticated = useAuthUserStore(
         (state) => state.setIsAuthenticated,
     );
-
-    const pwdWatcher: string = watch('password');
 
     // Handle navigation state messages (e.g., from registration)
     useEffect(() => {
@@ -63,11 +60,13 @@ export default function Login() {
     }, [location.state]);
 
     // Remove backend error message while typing password input
-    useEffect(() => {
-        if (!pwdWatcher) {
+    const handleValueOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+
+        if (!value) {
             setBackendErrorMessage('');
         }
-    }, [pwdWatcher]);
+    };
 
     const handleLogin: SubmitHandler<LoginFormInputs> = async (
         data: LoginFormInputs,
@@ -135,6 +134,7 @@ export default function Login() {
                             <InputField
                                 {...register('password', {
                                     required: 'Password field is required.',
+                                    onChange: handleValueOnChange,
                                 })}
                                 label="Password"
                                 id="password"
