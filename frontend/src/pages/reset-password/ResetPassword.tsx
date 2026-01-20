@@ -69,7 +69,6 @@ export default function ResetPassword() {
             }
         };
 
-        // TODO: Need to check if email is in the database (use backend api). if not redirect to login with same error message.
         checkTokenValidity(token);
 
         return () => {
