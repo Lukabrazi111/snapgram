@@ -10,7 +10,7 @@ import {
 import { Slide, toast, ToastContainer } from 'react-toastify';
 import { useEffect, useRef, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import FieldError from '@/components/form/FieldError.tsx';
+import FieldError from '@/components/ui/FieldError';
 import type { AxiosError } from 'axios';
 import axios from '@/configs/axios.tsx';
 import { useAuthUserStore } from '@/stores/authUserStore.tsx';
@@ -119,7 +119,8 @@ export default function Login() {
                         <div>
                             <InputField
                                 {...register('email', {
-                                    required: 'Email and username field is required.',
+                                    required:
+                                        'Email and username field is required.',
                                 })}
                                 label="Email or username"
                                 id="email"

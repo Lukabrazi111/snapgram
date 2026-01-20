@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Slide, toast, ToastContainer } from 'react-toastify';
+import AppLayout from '@/layouts/AppLayout';
+import BaseContainer from '@/components/BaseContainer';
 
 export default function HomeFeed() {
     const location = useLocation();
@@ -13,10 +15,13 @@ export default function HomeFeed() {
             window.history.replaceState({}, document.title);
         }
     }, [location.state]);
+
     return (
-        <div>
-            <h1 className={'text-white text-2xl'}>Home Feed</h1>
-            <ToastContainer transition={Slide} closeOnClick={true} />
-        </div>
+        <AppLayout>
+            <BaseContainer>
+                <h1 className="text-white font-bold text-3xl">Home Feed</h1>
+                <ToastContainer transition={Slide} closeOnClick={true} />
+            </BaseContainer>
+        </AppLayout>
     );
 }

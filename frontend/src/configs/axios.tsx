@@ -10,7 +10,7 @@ const axios: AxiosInstance = Axios.create({
 
 axios.interceptors.request.use((config) => {
     const token: string | null = localStorage.getItem('auth_token') ?? null;
-    
+
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -26,7 +26,7 @@ axios.interceptors.response.use(
         if (error.response?.status === 401) {
             localStorage.removeItem('auth_token');
             localStorage.removeItem('user');
-            
+
             // Redirect to login page (avoid redirect if already on login/register/reset-password page)
             const currentPath = window.location.pathname;
             if (

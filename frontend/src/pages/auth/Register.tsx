@@ -1,7 +1,7 @@
 import AuthLayout from '@/layouts/AuthLayout';
 import InputField from '@/components/ui/InputField';
 import Button from '@/components/ui/Button';
-import FieldError from '@/components/form/FieldError';
+import FieldError from '@/components/ui/FieldError';
 import axios from '@/configs/axios';
 import { Link, type NavigateFunction, useNavigate } from 'react-router-dom';
 import { type SubmitHandler, useForm } from 'react-hook-form';

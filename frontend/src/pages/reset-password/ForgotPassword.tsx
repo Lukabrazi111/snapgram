@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Slide, toast, ToastContainer } from 'react-toastify';
 import { useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import FieldError from '@/components/form/FieldError.tsx';
+import FieldError from '@/components/ui/FieldError';
 import type { AxiosError } from 'axios';
 import axios from '@/configs/axios.tsx';
 import Button from '@/components/ui/Button';

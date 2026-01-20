@@ -4,7 +4,7 @@ import { Slide, ToastContainer } from 'react-toastify';
 import { useState, useEffect, useCallback } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import FieldError from '@/components/form/FieldError.tsx';
+import FieldError from '@/components/ui/FieldError';
 import type { AxiosError } from 'axios';
 import axios from '@/configs/axios.tsx';
 import Button from '@/components/ui/Button';
@@ -67,7 +67,6 @@ export default function ResetPassword() {
                     });
                 }
             }
-
         };
 
         // TODO: Need to check if email is in the database (use backend api). if not redirect to login with same error message.
@@ -197,7 +196,7 @@ export default function ResetPassword() {
                         <Button
                             label={
                                 isLoading &&
-                                    Object.keys(backendErrors).length > 0
+                                Object.keys(backendErrors).length > 0
                                     ? 'Resetting password...'
                                     : 'Reset password'
                             }
