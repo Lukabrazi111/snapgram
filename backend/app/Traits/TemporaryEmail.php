@@ -8,7 +8,6 @@ trait TemporaryEmail
      * Generate a frontend URL from a temporary URL
      *
      * @param string $tempUrl
-     * @throws \Exception
      * @return string
      */
     public function getFrontendUrl(string $tempUrl): string

@@ -4,19 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\ResetPasswordRequest;
-use App\Models\User;
 use App\Services\ResetPasswordService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ResetPasswordController extends Controller
 {
-    public function __construct(private ResetPasswordService $resetPasswordService)
+    public function __construct(private readonly ResetPasswordService $resetPasswordService)
     {
-
     }
-    public function forgotPassword(ForgotPasswordRequest $request)
+
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $validated = $request->validated();
 

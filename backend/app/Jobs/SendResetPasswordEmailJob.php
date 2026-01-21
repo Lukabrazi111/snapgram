@@ -14,7 +14,7 @@ class SendResetPasswordEmailJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(private string $email, private string $url)
+    public function __construct(private readonly string $email, private readonly string $url)
     {
     }
 
