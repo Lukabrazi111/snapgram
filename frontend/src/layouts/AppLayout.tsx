@@ -2,7 +2,7 @@ import HomeIcon from '@/components/icons/HomeIcon';
 import UserProfile from '@/components/UserProfile';
 import ExploreIcon from '@/components/icons/ExploreIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PeopleIcon from '@/components/icons/PeopleIcon';
 import SavedIcon from '@/components/icons/SavedIcon';
 import CreatePostIcon from '@/components/icons/CreatePostIcon';
@@ -23,61 +23,132 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         />
                         <ul className="space-y-5">
                             <li>
-                                <Link
+                                <NavLink
                                     to="/"
-                                    className="group flex items-center space-x-3 px-5 hover:bg-primary rounded py-4 transition-colors ease-out"
+                                    end
+                                    className={({ isActive }) =>
+                                        `flex items-center space-x-3 px-5 rounded py-4 transition-colors ease-out ${isActive ? 'bg-primary' : 'hover:bg-primary group'}`
+                                    }
                                 >
-                                    <HomeIcon className="text-primary group-hover:text-white transition-colors" />
-                                    <span className="text-lg">Home</span>
-                                </Link>
+                                    {({ isActive }) => (
+                                        <>
+                                            <HomeIcon
+                                                className={
+                                                    isActive
+                                                        ? 'text-white'
+                                                        : 'text-primary group-hover:text-white transition-colors'
+                                                }
+                                            />
+                                            <span className="text-lg">
+                                                Home
+                                            </span>
+                                        </>
+                                    )}
+                                </NavLink>
                             </li>
                             <li>
-                                <Link
-                                    to="/"
-                                    className="group flex items-center space-x-3 px-5 hover:bg-primary rounded py-4 transition-colors ease-out"
+                                <NavLink
+                                    to="/explore"
+                                    className={({ isActive }) =>
+                                        `flex items-center space-x-3 px-5 rounded py-4 transition-colors ease-out ${isActive ? 'bg-primary' : 'hover:bg-primary group'}`
+                                    }
                                 >
-                                    <ExploreIcon className="text-primary group-hover:text-white transition-colors" />
-                                    <span className="text-lg">Explore</span>
-                                </Link>
+                                    {({ isActive }) => (
+                                        <>
+                                            <ExploreIcon
+                                                className={
+                                                    isActive
+                                                        ? 'text-white'
+                                                        : 'text-primary group-hover:text-white transition-colors'
+                                                }
+                                            />
+                                            <span className="text-lg">
+                                                Explore
+                                            </span>
+                                        </>
+                                    )}
+                                </NavLink>
                             </li>
                             <li>
-                                <Link
-                                    to="/"
-                                    className="group flex items-center space-x-3 px-5 hover:bg-primary rounded py-4 transition-colors ease-out"
+                                <NavLink
+                                    to="/people"
+                                    className={({ isActive }) =>
+                                        `flex items-center space-x-3 px-5 rounded py-4 transition-colors ease-out ${isActive ? 'bg-primary' : 'hover:bg-primary group'}`
+                                    }
                                 >
-                                    <PeopleIcon className="text-primary group-hover:text-white transition-colors" />
-                                    <span className="text-lg">People</span>
-                                </Link>
+                                    {({ isActive }) => (
+                                        <>
+                                            <PeopleIcon
+                                                className={
+                                                    isActive
+                                                        ? 'text-white'
+                                                        : 'text-primary group-hover:text-white transition-colors'
+                                                }
+                                            />
+                                            <span className="text-lg">
+                                                People
+                                            </span>
+                                        </>
+                                    )}
+                                </NavLink>
                             </li>
                             <li>
-                                <Link
-                                    to="/"
-                                    className="group flex items-center space-x-3 px-5 hover:bg-primary rounded py-4 transition-colors ease-out"
+                                <NavLink
+                                    to="/saved"
+                                    className={({ isActive }) =>
+                                        `flex items-center space-x-3 px-5 rounded py-4 transition-colors ease-out ${isActive ? 'bg-primary' : 'hover:bg-primary group'}`
+                                    }
                                 >
-                                    <SavedIcon className="text-primary group-hover:text-white transition-colors" />
-                                    <span className="text-lg">Saved</span>
-                                </Link>
+                                    {({ isActive }) => (
+                                        <>
+                                            <SavedIcon
+                                                className={
+                                                    isActive
+                                                        ? 'text-white'
+                                                        : 'text-primary group-hover:text-white transition-colors'
+                                                }
+                                            />
+                                            <span className="text-lg">
+                                                Saved
+                                            </span>
+                                        </>
+                                    )}
+                                </NavLink>
                             </li>
                             <li>
-                                <Link
-                                    to="/"
-                                    className="group flex items-center space-x-3 px-5 hover:bg-primary rounded py-4 transition-colors ease-out"
+                                <NavLink
+                                    to="/create-post"
+                                    className={({ isActive }) =>
+                                        `flex items-center space-x-3 px-5 rounded py-4 transition-colors ease-out ${isActive ? 'bg-primary' : 'hover:bg-primary group'}`
+                                    }
                                 >
-                                    <CreatePostIcon className="text-primary group-hover:text-white transition-colors" />
-                                    <span className="text-lg">Create Post</span>
-                                </Link>
+                                    {({ isActive }) => (
+                                        <>
+                                            <CreatePostIcon
+                                                className={
+                                                    isActive
+                                                        ? 'text-white'
+                                                        : 'text-primary group-hover:text-white transition-colors'
+                                                }
+                                            />
+                                            <span className="text-lg">
+                                                Create Post
+                                            </span>
+                                        </>
+                                    )}
+                                </NavLink>
                             </li>
                         </ul>
                     </div>
 
                     <div className="mt-auto">
-                        <Link
+                        <NavLink
                             to="/logout"
-                            className="group flex items-center space-x-3 px-5 py-4"
+                            className="group flex items-center space-x-3 px-5 py-4 hover:bg-red-500/20 rounded transition-colors"
                         >
-                            <LogoutIcon className="text-primary" />
+                            <LogoutIcon className="text-red-400 group-hover:text-red-300" />
                             <span className="text-lg">Logout</span>
-                        </Link>
+                        </NavLink>
                     </div>
                 </nav>
             </aside>

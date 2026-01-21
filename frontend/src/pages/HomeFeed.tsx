@@ -28,7 +28,7 @@ export default function HomeFeed() {
                     }
                 >
                     <BaseContainer>
-                        <div className={'w-full max-w-[650px] ml-auto'}>
+                        <div className={'w-full max-w-[650px] mx-auto'}>
                             {/* Header title */}
                             <PageTitle title={'Home Feed'} />
 

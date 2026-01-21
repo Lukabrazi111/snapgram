@@ -5,7 +5,8 @@ import Register from '@/pages/auth/Register';
 import { PrivateRoutes } from '@/components/protected-routes/PrivateRoutes';
 import { GuestRoutes } from '@/components/protected-routes/GuestRoutes';
 import ForgotPassword from '@/pages/reset-password/ForgotPassword';
-import ReesetPassword from '@/pages/reset-password/ResetPassword';
+import ResetPassword from '@/pages/reset-password/ResetPassword';
+import Explore from '@/pages/Explore.tsx';
 
 function App() {
     return (
@@ -15,12 +16,13 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password" element={<ReesetPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
             </Route>
 
             {/* Private Routes */}
             <Route element={<PrivateRoutes />}>
                 <Route path="/" element={<HomeFeed />} />
+                <Route path={'/explore'} element={<Explore />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/login" replace />} />
