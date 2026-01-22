@@ -9,7 +9,7 @@ export default function PeoplePage() {
         <AppLayout>
             <BaseContainer>
                 <PageTitle title={'All Users'} />
-                {/*  Content here...  */}
+
                 <PeopleList />
             </BaseContainer>
         </AppLayout>
