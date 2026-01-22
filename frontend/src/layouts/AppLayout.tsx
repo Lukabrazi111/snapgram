@@ -9,8 +9,8 @@ import CreatePostIcon from '@/components/icons/CreatePostIcon';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     return (
-        <main className="flex text-white">
-            <aside className="w-72 h-screen px-5 py-10 bg-main shrink-0">
+        <main className="flex text-white min-h-screen">
+            <aside className="w-72 h-screen px-5 py-10 bg-main shrink-0 sticky top-0">
                 <nav className="flex h-full flex-col">
                     <div className="space-y-10">
                         <div>
