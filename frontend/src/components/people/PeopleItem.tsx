@@ -1,6 +1,14 @@
 import Button from '@/components/ui/Button.tsx';
 
-export default function PeopleItem() {
+export default function PeopleItem({
+    name,
+    username,
+    userImage,
+}: {
+    name: string;
+    username: string;
+    userImage: string;
+}) {
     return (
         <div
             className={
@@ -8,12 +16,12 @@ export default function PeopleItem() {
             }
         >
             <img
-                src="/images/profile.png"
+                src={userImage}
                 alt="user-profile"
                 className="w-14 h-14 rounded-full object-cover"
             />
-            <p className="text-sm xl:text-base text-center">Alex Johnson</p>
-            <span className={'text-muted text-xs xl:text-sm'}>@alexj</span>
+            <p className="text-sm xl:text-base text-center">{name}</p>
+            <span className={'text-muted text-xs xl:text-sm'}>@{username}</span>
 
             <Button label={'Follow'} type={'button'} className={'mt-2'} />
         </div>

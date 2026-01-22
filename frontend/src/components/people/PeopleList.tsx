@@ -3,9 +3,11 @@ import PeopleItem from '@/components/people/PeopleItem.tsx';
 export default function PeopleList() {
     return (
         <section className={'mt-10 grid grid-cols-3 gap-5'}>
-            <PeopleItem />
-            <PeopleItem />
-            <PeopleItem />
+            <PeopleItem
+                name={'Alex Johnson'}
+                username={'alexj'}
+                userImage={'/images/profile.png'}
+            />
         </section>
     );
 }
