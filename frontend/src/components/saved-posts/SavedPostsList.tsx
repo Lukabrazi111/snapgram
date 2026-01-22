@@ -2,7 +2,7 @@ import SavedPostItem from '@/components/saved-posts/SavedPostItem.tsx';
 
 export default function SavedPostsList() {
     return (
-        <section className={'mt-10 grid grid-cols-3 space-x-4'}>
+        <section className={'mt-10 mb-14 grid grid-cols-3 space-x-4 gap-5'}>
             <SavedPostItem
                 name={'John Doe'}
                 userImage={'/images/profile.png'}

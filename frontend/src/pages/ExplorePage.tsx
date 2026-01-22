@@ -49,7 +49,7 @@ export default function ExplorePage() {
                     />
                 </div>
 
-                <div className={'mt-14'}>
+                <div className={'mt-10'}>
                     <div className={'flex items-center justify-between'}>
                         <h1 className={'text-2xl font-bold text-white'}>
                             Popular Today
@@ -95,7 +95,7 @@ export default function ExplorePage() {
                     </div>
                 </div>
 
-                <div className={'mt-10'}>
+                <div className={'mt-10 mb-14'}>
                     <ExplorePostList />
                 </div>
             </BaseContainer>

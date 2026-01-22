@@ -2,19 +2,22 @@ import HomeIcon from '@/components/icons/HomeIcon';
 import UserProfile from '@/components/UserProfile';
 import ExploreIcon from '@/components/icons/ExploreIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import PeopleIcon from '@/components/icons/PeopleIcon';
 import SavedIcon from '@/components/icons/SavedIcon';
 import CreatePostIcon from '@/components/icons/CreatePostIcon';
+import { type ReactNode } from 'react';
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default function AppLayout({ children }: { children: ReactNode }) {
     return (
         <main className="flex text-white min-h-screen">
             <aside className="w-72 h-screen px-5 py-10 bg-main shrink-0 sticky top-0">
                 <nav className="flex h-full flex-col">
                     <div className="space-y-10">
                         <div>
-                            <img src="/images/logo.svg" alt="logo" />
+                            <Link to={'/'}>
+                                <img src="/images/logo.svg" alt="logo" />
+                            </Link>
                         </div>
                         <UserProfile
                             name="John Doe"

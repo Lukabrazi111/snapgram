@@ -1,8 +1,6 @@
-export default function AuthLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+import { type ReactNode } from 'react';
+
+export default function AuthLayout({ children }: { children: ReactNode }) {
     return (
         <main className="flex w-full min-h-screen justify-center items-center">
             <div className="flex-1 flex flex-col items-center justify-center px-5 sm:px-0">
