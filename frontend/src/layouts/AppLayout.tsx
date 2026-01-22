@@ -39,9 +39,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                                         : 'text-primary group-hover:text-white transition-colors'
                                                 }
                                             />
-                                            <span className="text-lg">
-                                                Home
-                                            </span>
+                                            <span>Home</span>
                                         </>
                                     )}
                                 </NavLink>
@@ -62,9 +60,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                                         : 'text-primary group-hover:text-white transition-colors'
                                                 }
                                             />
-                                            <span className="text-lg">
-                                                Explore
-                                            </span>
+                                            <span>Explore</span>
                                         </>
                                     )}
                                 </NavLink>
@@ -85,9 +81,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                                         : 'text-primary group-hover:text-white transition-colors'
                                                 }
                                             />
-                                            <span className="text-lg">
-                                                People
-                                            </span>
+                                            <span>People</span>
                                         </>
                                     )}
                                 </NavLink>
@@ -108,9 +102,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                                         : 'text-primary group-hover:text-white transition-colors'
                                                 }
                                             />
-                                            <span className="text-lg">
-                                                Saved
-                                            </span>
+                                            <span>Saved</span>
                                         </>
                                     )}
                                 </NavLink>
@@ -131,9 +123,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                                         : 'text-primary group-hover:text-white transition-colors'
                                                 }
                                             />
-                                            <span className="text-lg">
-                                                Create Post
-                                            </span>
+                                            <span>Create Post</span>
                                         </>
                                     )}
                                 </NavLink>
@@ -147,7 +137,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                             className="group flex items-center space-x-3 px-5 py-4 hover:bg-red-500/20 rounded transition-colors"
                         >
                             <LogoutIcon className="text-red-400 group-hover:text-red-300" />
-                            <span className="text-lg">Logout</span>
+                            <span>Logout</span>
                         </NavLink>
                     </div>
                 </nav>
