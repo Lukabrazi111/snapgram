@@ -54,11 +54,11 @@ export default function PostItem() {
 
             <div className={'flex items-center justify-between'}>
                 <div className={'flex items-center space-x-2'}>
-                    <LikeButtonIcon className={'text-primary cursor-pointer'} />
+                    <LikeButtonIcon />
                     <span className={'text-white font-bold'}>1</span>
                 </div>
                 <div>
-                    <SavedIcon className={'text-primary cursor-pointer'} />
+                    <SavedIcon />
                 </div>
             </div>
         </div>

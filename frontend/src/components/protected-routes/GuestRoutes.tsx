@@ -4,12 +4,14 @@ import { useAuthUserStore } from '@/stores/authUserStore';
 
 export const GuestRoutes = () => {
     const getUser = useAuthUserStore((state) => state.getUser);
-    const isAuthenticated = useAuthUserStore((state) => state.isAuthenticated);
+    const isAuthenticated: boolean = useAuthUserStore(
+        (state) => state.isAuthenticated,
+    );
     const [isChecking, setIsChecking] = useState(true);
 
     useEffect(() => {
         const checkAuth = async () => {
-            const authToken = localStorage.getItem('auth_token') ?? '';
+            const authToken: string = localStorage.getItem('auth_token') ?? '';
             if (!authToken) {
                 setIsChecking(false);
                 return;
