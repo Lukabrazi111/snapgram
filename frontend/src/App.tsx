@@ -1,12 +1,13 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Login from '@/pages/auth/Login';
-import HomeFeed from '@/pages/HomeFeed';
+import HomeFeedPage from '@/pages/HomeFeedPage.tsx';
 import Register from '@/pages/auth/Register';
 import { PrivateRoutes } from '@/components/protected-routes/PrivateRoutes';
 import { GuestRoutes } from '@/components/protected-routes/GuestRoutes';
 import ForgotPassword from '@/pages/reset-password/ForgotPassword';
 import ResetPassword from '@/pages/reset-password/ResetPassword';
-import Explore from '@/pages/Explore.tsx';
+import ExplorePage from '@/pages/ExplorePage.tsx';
+import PeoplePage from '@/pages/PeoplePage.tsx';
 
 function App() {
     return (
@@ -21,8 +22,9 @@ function App() {
 
             {/* Private Routes */}
             <Route element={<PrivateRoutes />}>
-                <Route path="/" element={<HomeFeed />} />
-                <Route path={'/explore'} element={<Explore />} />
+                <Route path="/" element={<HomeFeedPage />} />
+                <Route path={'/explore'} element={<ExplorePage />} />
+                <Route path={'/people'} element={<PeoplePage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/login" replace />} />

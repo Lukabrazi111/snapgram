@@ -1,10 +1,10 @@
 import Button from '@/components/ui/Button.tsx';
 
-export default function TopCreatorsItem() {
+export default function PeopleItem() {
     return (
         <div
             className={
-                'flex flex-col items-center py-6 px-4 xl:px-6 2xl:px-8 space-y-2 border border-white/10 rounded-lg'
+                'flex flex-col items-center py-7 px-4 xl:px-6 2xl:px-8 space-y-2 border border-white/10 rounded-lg'
             }
         >
             <img

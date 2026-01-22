@@ -6,7 +6,7 @@ import FilterIcon from '@/components/icons/FilterIcon.tsx';
 import ExplorePostList from '@/components/explore/ExplorePostList.tsx';
 import { useEffect, useRef, useState } from 'react';
 
-export default function Explore() {
+export default function ExplorePage() {
     const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
     const filterMenuRef = useRef<HTMLDivElement>(null);
 
@@ -32,7 +32,7 @@ export default function Explore() {
     return (
         <AppLayout>
             <BaseContainer>
-                <PageTitle title={'Explore'} />
+                <PageTitle title={'ExplorePage'} />
 
                 <div className={'relative bg-surface rounded-lg mt-10'}>
                     <SearchIcon

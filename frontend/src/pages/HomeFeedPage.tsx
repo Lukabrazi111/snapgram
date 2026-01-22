@@ -7,7 +7,7 @@ import PageTitle from '@/components/ui/PageTitle.tsx';
 import PostList from '@/components/home-feed/PostList.tsx';
 import TopCreatorsList from '@/components/home-feed/TopCreatorsList.tsx';
 
-export default function HomeFeed() {
+export default function HomeFeedPage() {
     const location = useLocation();
 
     useEffect(() => {
