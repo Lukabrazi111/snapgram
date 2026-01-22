@@ -1,34 +1,44 @@
 import { create } from 'zustand';
 import axios from '@/configs/axios.tsx';
 
-type userState = {
-    user: object;
+export interface User {
+    id?: number;
+    name: string;
+    username: string;
+    email?: string;
+    image?: string;
+}
+
+type UserState = {
+    user: User;
     authToken: string;
     isAuthenticated: boolean;
 };
 
-type userActions = {
-    getUser: () => Promise<userState['user'] | null>;
-    setAuthToken: (token: userState['authToken']) => void;
-    setUser: (user: userState['user']) => void;
-    setIsAuthenticated: (isAuthenticated: userState['isAuthenticated']) => void;
+type UserActions = {
+    getUser: () => Promise<User | null>;
+    setAuthToken: (token: string) => void;
+    setUser: (user: User) => void;
+    setIsAuthenticated: (isAuthenticated: boolean) => void;
     logout: () => void;
 };
 
+const emptyUser: User = { name: '', username: '' };
+
 // Initialize state from localStorage
-const getInitialState = (): Pick<userState, 'user' | 'authToken'> => {
+const getInitialState = (): Pick<UserState, 'user' | 'authToken'> => {
     if (typeof window === 'undefined') {
-        return { user: {}, authToken: '' };
+        return { user: emptyUser, authToken: '' };
     }
 
     const token = localStorage.getItem('auth_token') ?? '';
     const userStr = localStorage.getItem('user');
-    let user = {};
+    let user: User = emptyUser;
     if (userStr) {
         try {
-            user = JSON.parse(userStr);
+            user = JSON.parse(userStr) as User;
         } catch {
-            user = {};
+            user = emptyUser;
         }
     }
 
@@ -37,7 +47,7 @@ const getInitialState = (): Pick<userState, 'user' | 'authToken'> => {
 
 const initialState = getInitialState();
 
-export const useAuthUserStore = create<userState & userActions>((set) => ({
+export const useAuthUserStore = create<UserState & UserActions>((set) => ({
     user: initialState.user,
     authToken: initialState.authToken,
     isAuthenticated: false,
@@ -45,30 +55,29 @@ export const useAuthUserStore = create<userState & userActions>((set) => ({
         try {
             const response = await axios.get('/user');
             if (response.status === 200) {
-                const user = response.data; // get user data from response
-                set({ isAuthenticated: true });
+                const user = response.data as User;
+                set({ isAuthenticated: true, user });
                 return user;
             }
-            set({ isAuthenticated: false, user: {} });
+            set({ isAuthenticated: false, user: emptyUser });
             return null;
         } catch {
-            set({ isAuthenticated: false, user: {} });
+            set({ isAuthenticated: false, user: emptyUser });
             return null;
         }
     },
-    setUser: (user: userState['user']) => {
+    setUser: (user: User) => {
         localStorage.setItem('user', JSON.stringify(user));
         set({ user });
     },
-    setAuthToken: (token: userState['authToken']) => {
+    setAuthToken: (token: string) => {
         localStorage.setItem('auth_token', token);
         set({ authToken: token });
     },
-    setIsAuthenticated: (isAuthenticated: userState['isAuthenticated']) =>
-        set({ isAuthenticated }),
+    setIsAuthenticated: (isAuthenticated: boolean) => set({ isAuthenticated }),
     logout: () => {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user');
-        set({ user: {}, authToken: '', isAuthenticated: false });
+        set({ user: emptyUser, authToken: '', isAuthenticated: false });
     },
 }));

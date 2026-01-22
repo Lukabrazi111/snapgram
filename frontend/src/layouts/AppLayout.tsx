@@ -6,11 +6,11 @@ import { Link, NavLink } from 'react-router-dom';
 import PeopleIcon from '@/components/icons/PeopleIcon';
 import SavedIcon from '@/components/icons/SavedIcon';
 import CreatePostIcon from '@/components/icons/CreatePostIcon';
-import { useAuthUserStore } from '@/stores/authUserStore.tsx';
-import { type ReactNode } from 'react';
+import { useAuthUserStore, type User } from '@/stores/authUserStore.tsx';
+import type { ReactNode } from 'react';
 
 export default function AppLayout({ children }: { children: ReactNode }) {
-    const user = useAuthUserStore((state) => state.user);
+    const user: User = useAuthUserStore((state) => state.user);
 
     return (
         <main className="flex text-white min-h-screen">
@@ -22,13 +22,19 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                                 <img src="/images/logo.svg" alt="logo" />
                             </Link>
                         </div>
-                        <UserProfile
-                            name={user.name}
-                            username={user.username}
-                            image={
-                                user.image ? user.image : '/images/profile.png'
-                            }
-                        />
+                        <div>
+                            <Link to={'/profile'}>
+                                <UserProfile
+                                    name={user.name}
+                                    username={user.username}
+                                    image={
+                                        user.image
+                                            ? user.image
+                                            : '/images/profile.png'
+                                    }
+                                />
+                            </Link>
+                        </div>
                         <ul className="space-y-5">
                             <li>
                                 <NavLink
