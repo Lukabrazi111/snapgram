@@ -6,9 +6,12 @@ import { Link, NavLink } from 'react-router-dom';
 import PeopleIcon from '@/components/icons/PeopleIcon';
 import SavedIcon from '@/components/icons/SavedIcon';
 import CreatePostIcon from '@/components/icons/CreatePostIcon';
+import { useAuthUserStore } from '@/stores/authUserStore.tsx';
 import { type ReactNode } from 'react';
 
 export default function AppLayout({ children }: { children: ReactNode }) {
+    const user = useAuthUserStore((state) => state.user);
+
     return (
         <main className="flex text-white min-h-screen">
             <aside className="w-72 h-screen px-5 py-10 bg-main shrink-0 sticky top-0">
@@ -20,9 +23,11 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                             </Link>
                         </div>
                         <UserProfile
-                            name="John Doe"
-                            username="john_doe"
-                            image="/images/profile.png"
+                            name={user.name}
+                            username={user.username}
+                            image={
+                                user.image ? user.image : '/images/profile.png'
+                            }
                         />
                         <ul className="space-y-5">
                             <li>
