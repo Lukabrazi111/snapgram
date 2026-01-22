@@ -9,6 +9,7 @@ import ResetPassword from '@/pages/reset-password/ResetPassword';
 import ExplorePage from '@/pages/ExplorePage.tsx';
 import PeoplePage from '@/pages/PeoplePage.tsx';
 import SavedPostsPage from '@/pages/SavedPostsPage.tsx';
+import CreatePostPage from '@/pages/CreatePostPage.tsx';
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                 <Route path={'/explore'} element={<ExplorePage />} />
                 <Route path={'/people'} element={<PeoplePage />} />
                 <Route path={'/saved'} element={<SavedPostsPage />} />
+                <Route path={'/create-post'} element={<CreatePostPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/login" replace />} />

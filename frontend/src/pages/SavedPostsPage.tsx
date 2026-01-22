@@ -8,10 +8,7 @@ export default function SavedPostsPage() {
     return (
         <AppLayout>
             <BaseContainer>
-                <div className={'flex items-center space-x-4'}>
-                    <SavedIcon className={'w-10 h-10 text-white'} />
-                    <PageTitle title={'Saved Posts'} />
-                </div>
+                <PageTitle title={'Saved Posts'} icon={<SavedIcon />} />
 
                 <SavedPostsList />
             </BaseContainer>
