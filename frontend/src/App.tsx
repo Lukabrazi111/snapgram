@@ -10,8 +10,9 @@ import ExplorePage from '@/pages/ExplorePage.tsx';
 import PeoplePage from '@/pages/PeoplePage.tsx';
 import SavedPostsPage from '@/pages/SavedPostsPage.tsx';
 import CreatePostPage from '@/pages/CreatePostPage.tsx';
-import ProfilePostsPage from '@/pages/ProfilePostsPage.tsx';
-import ProfileLikedPosts from '@/pages/ProfileLikedPostsPage.tsx';
+import ProfilePostsPage from '@/pages/profile/ProfilePostsPage.tsx';
+import ProfileLikedPosts from '@/pages/profile/ProfileLikedPostsPage.tsx';
+import ProfileEditPage from '@/pages/profile/ProfileEditPage.tsx';
 
 function App() {
     return (
@@ -35,6 +36,10 @@ function App() {
                 <Route
                     path={'/profile/liked-posts'}
                     element={<ProfileLikedPosts />}
+                />
+                <Route
+                    path={'/profile/edit'}
+                    element={<ProfileEditPage />}
                 />
             </Route>
 

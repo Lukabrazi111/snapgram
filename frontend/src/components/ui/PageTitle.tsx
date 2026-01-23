@@ -16,7 +16,7 @@ export default function PageTitle({
         <div className={icon ? 'flex items-center space-x-4' : ''}>
             {icon &&
                 cloneElement(icon, {
-                    className: `w-10 h-auto text-white ${icon.props.className || ''}`,
+                    className: `w-10 h-10 text-white ${icon.props.className || ''}`,
                 })}
             <h1 className="text-white font-bold text-3xl">{title}</h1>
         </div>

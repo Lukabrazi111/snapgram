@@ -3,7 +3,7 @@ import UserProfileDetails from '@/components/user-profile/UserProfileDetails.tsx
 import EditButtonIcon from '@/components/icons/EditButtonIcon.tsx';
 import AppLayout from '@/layouts/AppLayout.tsx';
 import type { ReactNode } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ImageIcon from '@/components/icons/ImageIcon.tsx';
 import LikeButtonIcon from '@/components/icons/LikeButtonIcon.tsx';
 
@@ -19,7 +19,8 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
                             image={''}
                         />
 
-                        <button
+                        <Link
+                            to={'/profile/edit'}
                             className={
                                 'self-start bg-surface hover:bg-surface/90 transition-colors px-4 py-3 rounded-lg flex items-center space-x-2 cursor-pointer text-sm text-nowrap'
                             }
@@ -28,7 +29,7 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
                                 className={'text-primary w-5 h-auto'}
                             />
                             <span>Edit Profile</span>
-                        </button>
+                        </Link>
                     </div>
 
                     {/* Navigation Links */}

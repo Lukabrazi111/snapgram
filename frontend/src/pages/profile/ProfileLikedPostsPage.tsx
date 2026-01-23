@@ -1,4 +1,4 @@
-import ProfileLayout from '@/layouts/ProfileLayout';
+import ProfileLayout from '@/layouts/ProfileLayout.tsx';
 import UserLikedPostList from '@/components/user-profile/UserLikedPostList.tsx';
 
 export default function ProfileLikedPosts() {
