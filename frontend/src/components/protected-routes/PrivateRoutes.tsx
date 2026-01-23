@@ -21,7 +21,13 @@ export const PrivateRoutes = () => {
     }
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
+        return (
+            <Navigate
+                to="/login"
+                replace
+                state={{ message: 'Logged out successfully' }}
+            />
+        );
     }
 
     return <Outlet />;

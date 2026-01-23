@@ -8,9 +8,26 @@ import SavedIcon from '@/components/icons/SavedIcon';
 import CreatePostIcon from '@/components/icons/CreatePostIcon';
 import { useAuthUserStore, type User } from '@/stores/authUserStore.tsx';
 import type { ReactNode } from 'react';
+import axios from '@/configs/axios';
+import type { AxiosError } from 'axios';
 
 export default function AppLayout({ children }: { children: ReactNode }) {
     const user: User = useAuthUserStore((state) => state.user);
+    const logoutUser = useAuthUserStore((state) => state.logout);
+
+    const logout = async () => {
+        try {
+            const response = await axios.post('/logout');
+
+            if (response.status === 200) {
+                logoutUser();
+            }
+        } catch (error) {
+            const err = error as AxiosError;
+            const message = err?.message;
+            console.error(message);
+        }
+    };
 
     return (
         <main className="flex text-white min-h-screen">
@@ -146,13 +163,14 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                     </div>
 
                     <div className="mt-auto">
-                        <NavLink
-                            to="/logout"
-                            className="group flex items-center space-x-3 px-5 py-4 hover:bg-red-500/20 rounded transition-colors"
+                        <button
+                            onClick={logout}
+                            type={'button'}
+                            className="group flex items-center space-x-3 px-5 py-4 hover:bg-red-500/20 rounded transition-colors w-full cursor-pointer"
                         >
                             <LogoutIcon className="text-red-400 group-hover:text-red-300" />
                             <span>Logout</span>
-                        </NavLink>
+                        </button>
                     </div>
                 </nav>
             </aside>
