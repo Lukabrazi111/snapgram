@@ -24,10 +24,10 @@ export default function HomeFeedPage() {
             <section className={'flex justify-between w-full space-x-2'}>
                 <div
                     className={
-                        'flex justify-between w-full h-[calc(100vh-0px)] overflow-y-auto custom-scrollbar'
+                        'w-full h-[calc(100vh-0px)] overflow-y-auto custom-scrollbar'
                     }
                 >
-                    <BaseContainer>
+                    <BaseContainer className="min-h-full">
                         <div className={'w-full max-w-[650px] mx-auto'}>
                             {/* Header title */}
                             <PageTitle title={'Home Feed'} />

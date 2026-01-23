@@ -10,7 +10,8 @@ import ExplorePage from '@/pages/ExplorePage.tsx';
 import PeoplePage from '@/pages/PeoplePage.tsx';
 import SavedPostsPage from '@/pages/SavedPostsPage.tsx';
 import CreatePostPage from '@/pages/CreatePostPage.tsx';
-import ProfilePage from '@/pages/ProfilePage.tsx';
+import ProfilePostsPage from '@/pages/ProfilePostsPage.tsx';
+import ProfileLikedPosts from '@/pages/ProfileLikedPostsPage.tsx';
 
 function App() {
     return (
@@ -30,7 +31,11 @@ function App() {
                 <Route path={'/people'} element={<PeoplePage />} />
                 <Route path={'/saved'} element={<SavedPostsPage />} />
                 <Route path={'/create-post'} element={<CreatePostPage />} />
-                <Route path={'/profile'} element={<ProfilePage />} />
+                <Route path={'/profile'} element={<ProfilePostsPage />} />
+                <Route
+                    path={'/profile/liked-posts'}
+                    element={<ProfileLikedPosts />}
+                />
             </Route>
 
             <Route path="*" element={<Navigate to="/login" replace />} />
