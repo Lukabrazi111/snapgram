@@ -4,6 +4,7 @@ import PageTitle from '@/components/ui/PageTitle.tsx';
 import CreatePostIcon from '@/components/icons/CreatePostIcon.tsx';
 import UploadImageIcon from '@/components/icons/UploadImageIcon.tsx';
 import Button from '@/components/ui/Button.tsx';
+import InputField from '@/components/ui/InputField.tsx';
 
 export default function CreatePostPage() {
     return (
@@ -58,26 +59,21 @@ export default function CreatePostPage() {
                     </div>
 
                     <div className={'flex flex-col space-y-2'}>
-                        <label htmlFor="caption">Add Location</label>
-                        <input
-                            className={
-                                'border border-white/10 focus:border-muted rounded-lg bg-secondary focus:outline-none px-3 py-3 text-sm'
-                            }
-                            name="location"
-                            id="location"
+                        <InputField
+                            label={'Add Location'}
+                            id={'location'}
+                            name={'location'}
+                            type={'text'}
                         />
                     </div>
 
                     <div className={'flex flex-col space-y-2'}>
-                        <label htmlFor="caption">
-                            Add Tags (separated by comma " , ")
-                        </label>
-                        <input
-                            className={
-                                'border border-white/10 focus:border-muted rounded-lg bg-secondary focus:outline-none px-3 py-3 text-sm'
-                            }
-                            name="location"
-                            id="location"
+                        <InputField
+                            label={'Add Tags (separated by comma " , ")'}
+                            id={'tags'}
+                            name={'tags'}
+                            type={'text'}
+                            placeholder={'Art, Expression, Learn'}
                         />
                     </div>
 
