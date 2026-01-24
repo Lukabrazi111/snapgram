@@ -16,7 +16,7 @@ export default function TextAreaField({
             <textarea
                 name={props.name}
                 cols={30}
-                rows={8}
+                rows={6}
                 {...props}
                 disabled={disabled}
                 className={`bg-secondary border border-transparent px-2 py-3 rounded-md focus:outline-none focus:border-muted focus:border ${disabled ? 'cursor-not-allowed opacity-60' : ''} ${className ?? ''}`}

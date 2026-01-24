@@ -5,6 +5,7 @@ import CreatePostIcon from '@/components/icons/CreatePostIcon.tsx';
 import UploadImageIcon from '@/components/icons/UploadImageIcon.tsx';
 import Button from '@/components/ui/Button.tsx';
 import InputField from '@/components/ui/InputField.tsx';
+import TextAreaField from '@/components/ui/TextAreaField.tsx';
 
 export default function CreatePostPage() {
     return (
@@ -18,15 +19,10 @@ export default function CreatePostPage() {
                     className={'mt-10 mb-14 space-y-10'}
                 >
                     <div className={'flex flex-col space-y-2'}>
-                        <label htmlFor="caption">Caption</label>
-                        <textarea
-                            className={
-                                'border border-white/10 focus:border-muted rounded-lg bg-secondary focus:outline-none px-3 py-2 text-sm'
-                            }
-                            name="caption"
-                            id="caption"
-                            cols={30}
-                            rows={8}
+                        <TextAreaField
+                            label={'Caption'}
+                            name={'caption'}
+                            id={'caption'}
                         />
                     </div>
 

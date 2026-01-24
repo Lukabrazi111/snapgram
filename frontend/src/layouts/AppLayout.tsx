@@ -140,7 +140,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/create-post"
+                                    to="/posts/create"
                                     className={({ isActive }) =>
                                         `flex items-center space-x-3 px-5 rounded py-4 transition-colors ease-out ${isActive ? 'bg-primary' : 'hover:bg-primary group'}`
                                     }
