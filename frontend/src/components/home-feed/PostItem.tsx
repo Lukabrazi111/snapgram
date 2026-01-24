@@ -1,10 +1,11 @@
 import EditButtonIcon from '@/components/icons/EditButtonIcon.tsx';
 import LikeButtonIcon from '@/components/icons/LikeButtonIcon.tsx';
 import SavedIcon from '@/components/icons/SavedIcon.tsx';
+import PostItemLayout from '@/layouts/PostItemLayout.tsx';
 
 export default function PostItem() {
     return (
-        <div className="border border-white/10 rounded-lg px-8 py-6 bg-main w-full max-w-[650px] space-y-4">
+        <PostItemLayout className={'space-y-4'}>
             <div className="flex items-center justify-between">
                 <div className={'flex items-center space-x-3'}>
                     <div>
@@ -61,6 +62,6 @@ export default function PostItem() {
                     <SavedIcon />
                 </div>
             </div>
-        </div>
+        </PostItemLayout>
     );
 }
