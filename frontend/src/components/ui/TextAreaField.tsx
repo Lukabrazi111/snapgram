@@ -19,7 +19,7 @@ export default function TextAreaField({
                 rows={6}
                 {...props}
                 disabled={disabled}
-                className={`bg-secondary border border-transparent px-2 py-3 rounded-md focus:outline-none focus:border-muted focus:border ${disabled ? 'cursor-not-allowed opacity-60' : ''} ${className ?? ''}`}
+                className={`bg-secondary border border-transparent px-2 py-1 rounded-md focus:outline-none focus:border-muted focus:border ${disabled ? 'cursor-not-allowed opacity-60' : ''} ${className ?? ''}`}
             />
         </div>
     );
