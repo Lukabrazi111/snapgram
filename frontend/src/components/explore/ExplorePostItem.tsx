@@ -13,14 +13,14 @@ export default function ExplorePostItem() {
             />
             <div
                 className={
-                    'flex items-center justify-between transform -translate-y-10 px-4'
+                    'flex items-center justify-between transform -translate-y-12 px-4'
                 }
             >
                 <div className={'flex items-center text-white space-x-3'}>
                     <img
                         src="/images/profile.png"
                         alt="user-profile"
-                        className={'w-9 h-auto'}
+                        className={'w-9 h-9'}
                     />
                     <span>John Doe</span>
                 </div>
