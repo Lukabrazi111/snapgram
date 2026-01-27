@@ -1,4 +1,5 @@
 import Button from '@/components/ui/Button.tsx';
+import { Link } from 'react-router-dom';
 
 export default function PeopleItem({
     name,
@@ -10,7 +11,8 @@ export default function PeopleItem({
     userImage: string;
 }) {
     return (
-        <div
+        <Link
+            to={'#'}
             className={
                 'flex flex-col items-center py-7 px-4 xl:px-6 2xl:px-8 space-y-2 border border-white/10 rounded-lg'
             }
@@ -24,6 +26,6 @@ export default function PeopleItem({
             <span className={'text-muted text-xs xl:text-sm'}>@{username}</span>
 
             <Button label={'Follow'} type={'button'} className={'mt-2'} />
-        </div>
+        </Link>
     );
 }
