@@ -20,10 +20,14 @@ Route::get('/verify-email', [AuthController::class, 'verifyEmail'])->name('verif
 
 // Sanctum protected routes
 Route::middleware('auth:sanctum')->group(function () {
+    // Users
+    Route::put('/user', [UserController::class, 'update'])->name('user.update');
     Route::get('/user', [UserController::class, 'show'])->name('user.show');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Posts
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+    // Logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
