@@ -19,6 +19,6 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
 
-        User::factory(5)->create();
+        User::factory(10)->create();
     }
 }
