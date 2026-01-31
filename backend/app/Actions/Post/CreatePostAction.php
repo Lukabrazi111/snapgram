@@ -27,7 +27,7 @@ final class CreatePostAction
             $image = $attributes['image'];
 
             if ($image) {
-                $path = $image->store('post-images', 'public');
+                $path = $image->store('posts', 'public');
                 $url = asset('storage/' . $path);
 
                 $post->image()->create([
