@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Actions\Post\CreatePostAction;
 use App\Actions\Post\DeletePostAction;
+use App\Actions\Post\UpdatePostAction;
 use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 
@@ -46,6 +48,17 @@ class PostController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Post created successfully.',
+            'post' => new PostResource($post),
+        ]);
+    }
+
+    public function update(Post $post, UpdatePostRequest $request, UpdatePostAction $action): \Illuminate\Http\JsonResponse
+    {
+        $post = $action->handle($post, $request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Post updated successfully.',
             'post' => new PostResource($post),
         ]);
     }

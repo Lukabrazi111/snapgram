@@ -10,7 +10,7 @@ final class DeletePostAction
     /**
      * Execute delete post action.
      */
-    public function handle(Post $post)
+    public function handle(Post $post): void
     {
         if ($post->image) {
             $path = str_replace(asset('storage/'), '', $post->image->url);
