@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Post\CreatePostAction;
+use App\Actions\Post\DeletePostAction;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
@@ -44,7 +45,18 @@ class PostController extends Controller
 
         return response()->json([
             'success' => true,
+            'message' => 'Post created successfully.',
             'post' => new PostResource($post),
+        ]);
+    }
+
+    public function destroy(Post $post, DeletePostAction $action): \Illuminate\Http\JsonResponse
+    {
+        $action->handle($post);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Post deleted successfully.',
         ]);
     }
 }
