@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Post\CreatePostAction;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
@@ -11,7 +12,7 @@ class PostController extends Controller
     public function index(): \Illuminate\Http\JsonResponse
     {
         $posts = Post::query()
-            ->with(['user', 'tags'])
+            ->with(['user', 'tags', 'image'])
             ->latest()
             ->paginate(10);
 
@@ -37,10 +38,13 @@ class PostController extends Controller
         ]);
     }
 
-    public function store(CreatePostRequest $request): \Illuminate\Http\JsonResponse
+    public function store(CreatePostRequest $request, CreatePostAction $action): \Illuminate\Http\JsonResponse
     {
-        $validated = $request->validated();
+        $post = $action->handle($request->user(), $request->validated());
 
-        dd($validated);
+        return response()->json([
+            'success' => true,
+            'post' => new PostResource($post),
+        ]);
     }
 }

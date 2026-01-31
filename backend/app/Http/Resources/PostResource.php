@@ -16,10 +16,11 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => $this->whenLoaded('user'),
+            'user' => new UserResource($this->whenLoaded('user')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
-            'title' => $this->title,
+            'location' => $this->location,
             'description' => $this->description,
+            'image_url' => $this->image?->url,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

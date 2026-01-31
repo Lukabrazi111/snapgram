@@ -22,11 +22,11 @@ class CreatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|integer|exists:users,id',
             'location' => 'required|string|min:3|max:50',
             'description' => 'required|string|min:3|max:255',
+            'image' => 'required|image|mimes:png,jpg|max:4096',
             'tags' => 'required|array',
-            'tags.*' => 'required|string|min:3|max:150|exists:tags,id',
+            'tags.*' => 'required|string|min:3|max:30',
         ];
     }
 }
